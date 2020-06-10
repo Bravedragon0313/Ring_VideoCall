@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no"
+    />
+    <title>Video Stream</title>
+    <style type="text/css">
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 10px;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+      }
+
+      video {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <video id="video" controls></video>
+    <script>
+      const LIVE_STREAM_URL = 'output/stream.m3u8',
+        video = document.getElementById('video')
+
+      if (Hls.isSupported()) {
+        const config = { liveDurationInfinity: true },
+          hls = new Hls(config)
+          console.log("here hls", hls);
+
+        hls.loadSource(LIVE_STREAM_URL)
+        hls.attachMedia(video)
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          video.play()
+        })
+      }
+      else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = LIVE_STREAM_URL
+        video.addEventListener('loadedmetadata', function() {
+          video.play()
+        })
+      }
+    </script>
+  </body>
+</html>
