@@ -19,7 +19,7 @@ async function example() {
     console.log('No cameras found')
     return
   }
-
+ 
   // clean/create the output directory
   await cleanOutputDirectory()
 

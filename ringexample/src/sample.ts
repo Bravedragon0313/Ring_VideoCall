@@ -10,6 +10,7 @@ import { Cameras } from './entity/Cameras'
 const fs = require('fs');
 const { exec } = require('child_process');
   
+const param = process.argv.slice(0);
 async function example() {
   //var sipdata = new Array();
   var count;
@@ -67,37 +68,6 @@ async function example() {
       camera.startVideoOnDemand();
  
       console.log(`here camera pro- ${camera.id}: ${camera.name} (${camera.deviceType})`)
-      createConnection({
-        type: "mysql",
-        host: "localhost",
-        port: 3306,
-        username: "ivan",
-        password: "ELb8pCtVhHlcIjki",
-        // username: "root",
-        // password: "",
-        database: "ringd",
-        entities: [
-            __dirname + "/entity/*.ts"
-        ],
-        synchronize: true,
-        logging: false
-      }).then(async connection => {
-
-        console.log("Inserting a new devices into the database...");
-        const device = new Cameras();
-        device.cameraid = camera.id;
-        device.cameraname = camera.name;
-        
-        await connection.manager.save(device).then(result => {
-          //console.log(result);
-
-          //console.log("Loading devices from the database...");
-          connection.manager.find('devices').then(devices => {
-          //console.log("Loaded devices: ", devices);
-          });
-        });
-
-      }).catch(error => console.log(error));
 
     }
  
@@ -181,41 +151,12 @@ async function example() {
         } catch (err) {
           console.error(err)
         }
-        exec('/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@ring01 909', (err, stdout, stderr) => {
-          // your callback
-        });
-        console.log("here execute shell script", '/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@ring01 909');
-        // var url : string = clientApi('doorbots/' + ding.id + '/live_view');
-        // var ringrest = new RingRestClient({
-        //   // Replace with your refresh token
-        //   refreshToken: env.RING_REFRESH_TOKEN!,
-        //   // Listen for dings and motion events
-        // })
-        // var options = {
-        //   method : 'GET' ,
-        //   url: clientApi('doorbots/' + ding.id + '/live_view'),
-        //   json : true,
-        //   data: '',
-        //   responseType : 'json'
-        // }
-        // ringrest.request({
-        //   method : "GET" ,
-        //   url: url,
-        //   json : true,
-        //   data: '',
-        //   responseType : 'stream'
-        // });
-        //var url: string = 'https://api.ring.com/clients_api/doorbots/' + ding.id + '/live_view';
-        // var url: string = 'https://api.ring.com/clients_api/dings/active';
-        // (async () => {
-        //   const queryString = '';
-        //   var options = {
-        //       uri: url + queryString,
-        //   };
-        //   const result = await request.post(options);
-        //   console.log("here live view result", result)
-        // })()
         
+        exec('/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@'+param + 'conf' + param, (err, stdout, stderr) => {
+          // your callback
+          console.log(err)
+        });
+        console.log("here execute shell script", '/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@'+param + 'conf' + param);
         createConnection({
           type: "mysql",
           host: "localhost",
