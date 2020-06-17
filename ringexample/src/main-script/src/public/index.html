@@ -43,7 +43,7 @@
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/heroes">All heroes</a>
+                    <a class="nav-link" href="/devices">All devices</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -55,11 +55,11 @@
 
     <div class="container pt-5 pb-5">
 
-            <h1>Welcome to the Heroes Rest API</h1>
+            <h1>Welcome to the devices Rest API</h1>
 
             <p>Feel free to test de basic Rest API with MySQL</p>
 
-            <p>If you need the model of database for test, download it <a href="./database/heroes.sql">here</a></p>
+            <p>If you need the model of database for test, download it <a href="./database/devices.sql">here</a></p>
 
     </div>
 
@@ -73,7 +73,7 @@
     <script>
         document.getElementById("button").addEventListener("click", function(event){
             event.preventDefault()
-            window.location = `/heroes/${document.getElementById('number').value}`
+            window.location = `/devices/${document.getElementById('number').value}`
             console.log(document.getElementById('number').value)
         });
     </script>

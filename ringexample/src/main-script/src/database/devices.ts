@@ -1,7 +1,7 @@
 import mysql = require('mysql')
 
-export default class MySQL{
-    private static _instance : MySQL;
+export default class Devices{
+    private static _instance : Devices;
 
     connection : mysql.Connection;
     connected: boolean = false;

@@ -1,6 +1,7 @@
 import Server from './server/server';
 import router from './router/router';
-import Devices from './database/mysql';
+import Devices from './database/devices';
+import Sigman from './database/sigman'
 import 'dotenv/config'
 import { RingApi, RingCamera } from 'ring-client-api'
 import { skip } from 'rxjs/operators'
@@ -188,18 +189,35 @@ exec('/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@'+param + 'conf' + param, 
 //     });
 //   }).catch(error => console.log(error));
     router.get('/save',(req:Request, res:Response) => {
-    const query = `INSERT INTO devices (deviceid,devicename,buttonpush_extension,motion_extension,liveview_extension) VALUES ('${deviceid}','${devicename}','${buttonpush_extension}','${motion_extension}','${liveview_extension}')`;
-    Devices.query(query, (err:Error, results:Object[])=>{
+      const query = `INSERT INTO devices (deviceid,devicename,buttonpush_extension,motion_extension,liveview_extension) VALUES ('${deviceid}','${devicename}','${buttonpush_extension}','${motion_extension}','${liveview_extension}')`;
+        Devices.query(query, (err:Error, results:Object[])=>{
+            if(err){
+                res.status(400).json({
+                    ok: false,
+                    err,
+                });
+            }
+            else {
+                res.json({
+                    ok: true,
+                    devices: results
+                });
+            }
+        });
+    });
+    router.get('/sigman/:id', (req:Request, res:Response) => {
+    const query = `SELECT * FROM sigman WHERE id=${Sigman.escape(req.params.id)}`
+    Sigman.query(query, (err:Error, results:Object[]) => {
         if(err){
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
-                err,
+                err
             });
         }
-        else {
+        else{
             res.json({
                 ok: true,
-                heroes: results
+                ringconf: results[0],
             });
         }
     });
