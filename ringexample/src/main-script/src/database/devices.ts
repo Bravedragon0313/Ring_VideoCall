@@ -8,10 +8,16 @@ export default class Devices{
 
     constructor(){
 
+        // this.connection = mysql.createConnection({
+        //     host: 'localhost',
+        //     user: 'ivan',
+        //     password: 'ELb8pCtVhHlcIjki',
+        //     database: 'ringd',
+        // });
         this.connection = mysql.createConnection({
             host: 'localhost',
-            user: 'ivan',
-            password: 'ELb8pCtVhHlcIjki',
+            user: 'root',
+            password: '',
             database: 'ringd',
         });
 

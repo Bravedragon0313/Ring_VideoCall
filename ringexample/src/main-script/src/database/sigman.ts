@@ -6,12 +6,18 @@ export default class Sigman{
     connection : mysql.Connection;
     connected: boolean = false;
 
-    constructor(){
+     constructor(){
 
+        // this.connection = mysql.createConnection({
+        //     host: 'localhost',
+        //     user: 'sigman',
+        //     password: 'sigman',
+        //     database: 'sigman',
+        // });
         this.connection = mysql.createConnection({
             host: 'localhost',
-            user: 'sigman',
-            password: 'sigman',
+            user: 'root',
+            password: '',
             database: 'sigman',
         });
 

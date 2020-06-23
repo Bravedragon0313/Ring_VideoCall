@@ -3,10 +3,10 @@ import { RingApi, RingCamera } from 'ring-client-api'
 import { skip } from 'rxjs/operators'
 import { readFile, writeFile } from 'fs'
 import { promisify } from 'util'
-import {Devices} from './entity/Devices'
+//import {Devices} from './entity/Devices'
 import "reflect-metadata";
-import {createConnection} from "typeorm";
-import { Cameras } from './entity/Cameras'
+//import {createConnection} from "typeorm";
+//import { Cameras } from './entity/Cameras'
 const fs = require('fs');
 const { exec } = require('child_process');
   
@@ -152,63 +152,63 @@ async function example() {
           console.error(err)
         }
         
-        exec('/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@'+param + 'conf' + param, (err, stdout, stderr) => {
-          // your callback
-          console.log(err)
-        });
-        console.log("here execute shell script", '/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@'+param + 'conf' + param);
-        createConnection({
-          type: "mysql",
-          host: "localhost",
-          port: 3306,
-          username: "ivan",
-          password: "ELb8pCtVhHlcIjki",
-          // username: "root",
-          // password: "",
-          database: "ringd",
-          entities: [
-              __dirname + "/entity/*.ts"
-          ],
-          synchronize: true,
-          logging: false
-        }).then(async connection => {
+        // exec('/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@'+param + 'conf' + param, (err, stdout, stderr) => {
+        //   // your callback
+        //   console.log(err)
+        // });
+        // console.log("here execute shell script", '/etc/newtest.sh PJSIP/'+ding.sip_session_id + '@'+param + 'conf' + param);
+        // createConnection({
+        //   type: "mysql",
+        //   host: "localhost",
+        //   port: 3306,
+        //   username: "ivan",
+        //   password: "ELb8pCtVhHlcIjki",
+        //   // username: "root",
+        //   // password: "",
+        //   database: "ringd",
+        //   entities: [
+        //       __dirname + "/entity/*.ts"
+        //   ],
+        //   synchronize: true,
+        //   logging: false
+        // }).then(async connection => {
  
-          console.log("Inserting a new devices into the database...");
-          const device = new Devices();
-          console.log("here event for test", event)
-          device.deviceid = 'ring' + ringcount;
-          device.devicename = camera.name;
-          device.motion_extension = ding.motion;
-          if (ding.kind === 'motion') {
-            device.buttonpush_extension = false;
-            device.liveview_extension = false;
-          } else if (event === 'Doorbell pressed') {
-            device.buttonpush_extension = true;
-            device.liveview_extension = false;
-          } else {
-            device.buttonpush_extension = false;
-            device.liveview_extension = true;
-          }
-          // console.log("here database device", device)
+        //   console.log("Inserting a new devices into the database...");
+        //   const device = new Devices();
+        //   console.log("here event for test", event)
+        //   device.deviceid = 'ring' + ringcount;
+        //   device.devicename = camera.name;
+        //   device.motion_extension = ding.motion;
+        //   if (ding.kind === 'motion') {
+        //     device.buttonpush_extension = false;
+        //     device.liveview_extension = false;
+        //   } else if (event === 'Doorbell pressed') {
+        //     device.buttonpush_extension = true;
+        //     device.liveview_extension = false;
+        //   } else {
+        //     device.buttonpush_extension = false;
+        //     device.liveview_extension = true;
+        //   }
+        //   // console.log("here database device", device)
  
-          // await connection.manager.remove(device).then(result => {
-          //   console.log(result);})
+        //   // await connection.manager.remove(device).then(result => {
+        //   //   console.log(result);})
             
-          await connection.manager.save(device).then(result => {
-            //console.log(result);
+        //   await connection.manager.save(device).then(result => {
+        //     //console.log(result);
  
-            //console.log("Loading devices from the database...");
-            connection.manager.find('devices').then(devices => {
-            //console.log("Loaded devices: ", devices);
-            });
-          });
-          connection.query(
-            'SELECT * FROM Devices WHERE id=device.deviceid? LIMIT ?, 5',[ device.deviceid], 
-            void function (err, results) {
-              console.log(results)
-            }
-        );
-        }).catch(error => console.log(error));
+        //     //console.log("Loading devices from the database...");
+        //     connection.manager.find('devices').then(devices => {
+        //     //console.log("Loaded devices: ", devices);
+        //     });
+        //   });
+        //   connection.query(
+        //     'SELECT * FROM Devices WHERE id=device.deviceid? LIMIT ?, 5',[ device.deviceid], 
+        //     void function (err, results) {
+        //       console.log(results)
+        //     }
+        // );
+        // }).catch(error => console.log(error));
         
       })
     })
