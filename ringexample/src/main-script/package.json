@@ -12,7 +12,7 @@
   "author": "cristiancosano",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mysql": "github:mysqljs/mysql"
   },
   "devDependencies": {
